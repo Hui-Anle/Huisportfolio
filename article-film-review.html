@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>影评 · Huihui ZHU</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    :root{--paper:#FDFBF7;--ink:#1A1A1A;--muted:#7B8277;--green:#4A5D4E}
+    *{box-sizing:border-box}html,body{margin:0;background:var(--paper);color:var(--ink);overflow-x:hidden}
+    body{font-family:"Songti SC",SimSun,Georgia,serif}a{color:inherit;text-decoration:none}
+    .masthead{padding:30px 4.5vw;display:flex;justify-content:space-between;align-items:center;font:10px Arial,sans-serif;letter-spacing:.15em;position:relative;z-index:5}
+    .signature{display:flex;gap:14px;align-items:center;cursor:pointer}.seal{width:31px;height:35px;border:1px solid #986152;color:#986152;display:grid;place-items:center;font:20px SimSun;transform:rotate(-4deg)}
+    .eyebrow{line-height:1.7}.nav-links{display:flex;gap:24px}.nav-links a{color:var(--muted)}.nav-links a:hover{color:var(--green)}.hero{position:relative;text-align:center;padding:0 0 10vh}.hero-cover{position:relative;width:100%;height:60vh;overflow:hidden}.hero-cover img{width:100%;height:100%;object-fit:cover}.hero-cover::after{content:"";position:absolute;inset:0;background:rgb(26 26 26 / .3)}.hero h1{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;color:#fff;font-size:clamp(42px,8vw,108px);font-weight:400;margin:0;padding:24px;text-shadow:0 2px 16px rgb(0 0 0 / .55)}.hero .translations,.hero .source{display:none}
+    #content{width:min(1400px,90vw);margin:0 auto 12vh}.review-section{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,2fr) minmax(0,.75fr);gap:clamp(24px,4vw,64px);align-items:start;margin:0 0 80px;padding:45px 0;border-top:1px solid rgb(123 130 119 / .2)}
+    .section-heading{grid-column:1/-1;color:var(--green);font-size:13px;letter-spacing:.16em;margin:0 0 12px}.column{font-size:.76rem;line-height:1.9;min-width:0;color:#9aa196}.column.main{font-size:1.18rem;line-height:2.02;color:var(--ink);box-shadow:0 0 0 18px rgb(123 130 119 / .025)}.column p{margin:0 0 1.5em}.column p:last-child{margin-bottom:0}.illustration{grid-column:1/-1;margin:25px auto;width:min(72%,760px);text-align:center;color:var(--muted);font-size:10px;letter-spacing:.1em}.illustration img{display:block;width:100%;max-height:65vh;object-fit:contain;border:1px solid rgb(123 130 119 / .22);box-shadow:0 12px 30px rgb(26 26 26 / .07)}.illustration video{display:block;width:100%;max-height:65vh;object-fit:contain;border:0;box-shadow:none;background:transparent;pointer-events:none}.illustration::before{content:'图';display:block;margin-bottom:8px;color:rgb(74 93 78 / .55)}.references{font-size:.85rem;color:var(--muted);line-height:1.8;border-top:1px solid rgb(123 130 119 / .2);padding:40px 0}.language-switch{display:none!important}
+    .closing{padding:0 4.5vw 50px;text-align:right}.return-link{position:fixed;right:4.5vw;bottom:max(25px,env(safe-area-inset-bottom));z-index:100;padding:12px 16px;font-size:10px;color:var(--green);background:#FDFBF7;letter-spacing:.08em}
+    @media(max-width:800px){.masthead{padding:24px 7vw}.hero-cover{height:52vh}.review-section{display:flex;flex-direction:column;gap:18px;margin-bottom:52px;padding:30px 0}.column{display:block;width:100%;font-size:1rem}.column.main{box-shadow:none;font-size:1.08rem}.illustration{width:100%}}
+  </style>
+</head>
+<body>
+  <header class="masthead"><a class="signature" href="index.html" aria-label="返回首页"><span class="seal">朱</span><span class="eyebrow">Huihui ZHU<br>Words &amp; Worlds</span></a><nav class="nav-links" aria-label="页面导航"><a href="index.html">首页</a><a href="work-detail.html?category=contemplation">作品</a></nav></header>
+  <main><section class="hero"><figure class="hero-cover"><img src="images/articles/lalaland.jpg" alt="La La Land" fetchpriority="high"><h1 id="title">How (dis)enchanted is La La Land?</h1></figure><div class="translations" id="translations"></div><div class="source" id="source"></div></section><div id="content" aria-live="polite"></div></main>
+  <footer class="closing"><a class="return-link" href="work-detail.html?category=contemplation">← 返回作品集 Back</a></footer>
+  <script src="js/reviews-data.js"></script>
+  <script>
+  (()=>{
+    const params=new URLSearchParams(location.search);const selected=params.get('article')||'lalaland';
+    const content=document.getElementById('content');
+    const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const clean=s=>s.replace(/\s*(?:【|\[)插图[^】\]]*(?:】|\])\s*/g,'\n\n').trim();
+    const renderText=s=>{s=clean(s);return window.marked?marked.parse(s,{breaks:true}):`<p>${esc(s).replace(/\n\n/g,'</p><p>')}</p>`};
+    function sectionHtml(sec,mainLang){const order=mainLang==='en'?['zh','en','fr']:['en','zh','fr'];const labels={zh:'中文',en:'EN',fr:'FR'};const images=(sec.images||[]).filter(path=>!path.endsWith('lalaland.jpg')).map(path=>path.match(/\.(?:jpe?g|png|webp|gif)$/i)?`<figure class="illustration"><img src="${esc(path)}" alt="插图" loading="lazy"><figcaption>插图 / Illustration</figcaption></figure>`:path.match(/\.mp4$/i)?`<figure class="illustration"><video src="${esc(path)}" autoplay muted loop playsinline preload="auto"></video><figcaption>视频 / Comparison</figcaption></figure>`:'').join('');return `<section class="review-section"><h2 class="section-heading">${esc(sec.heading)}</h2><div class="language-switch"></div>${order.map(l=>`<article class="column ${l===mainLang?'main':''}" data-language="${l}">${renderText(sec[l]||'')}</article>`).join('')}${images}</section>`}
+    function load(){const data=REVIEWS_DATA.lalaland;const mainLang='en';document.getElementById('source').textContent='La La Land';document.getElementById('title').textContent=data.titleEn;document.getElementById('translations').textContent=data.titleZh+' / '+data.titleFr;content.innerHTML=data.sections.map(s=>sectionHtml(s,mainLang)).join('');bindMobile();}
+    function bindMobile(){document.querySelectorAll('.review-section').forEach(section=>{const buttons=section.querySelectorAll('button'),cols=section.querySelectorAll('.column');buttons.forEach(btn=>btn.addEventListener('click',()=>{buttons.forEach(b=>b.classList.remove('active'));btn.classList.add('active');cols.forEach(c=>c.style.display=c.dataset.language===btn.dataset.lang?'block':'none')}));const main=section.querySelector('.column.main');if(main){const b=[...buttons].find(x=>x.dataset.lang===main.dataset.language);if(b)b.classList.add('active')}})}
+    load();
+  })();
+  </script>
+</body></html>

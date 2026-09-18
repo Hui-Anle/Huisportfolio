@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FDFBF7">
+  <meta name="description" content="Huihui ZHU — 以文字观察世界，以留白安放想象。">
+  <title>Huihui ZHU · 字里，山河</title>
+  <style>
+    :root { color-scheme: light; --paper: #FDFBF7; --ink: #1A1A1A; --green: #4A5D4E; }
+    * { box-sizing: border-box; }
+    html, body { height: 100svh; overflow: hidden; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: Arial, "PingFang SC", "Microsoft YaHei", sans-serif; }
+    /* Tiny, self-contained paper grain. No font or graphics libraries. */
+    body::after { content: ""; position: fixed; inset: 0; z-index: 8; pointer-events: none; opacity: .035; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23000' filter='url(%23n)' opacity='.7' d='M0 0h180v180H0z'/%3E%3C/svg%3E"); }
+    .hero { height: 100svh; min-height: 0; position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 35px 4.5vw 25px; }
+    .masthead, .footer { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; position: relative; z-index: 4; }
+    .signature { display: flex; align-items: center; gap: 15px; }
+    .seal { width: 31px; height: 35px; border: 1px solid #986152; color: #986152; display: grid; place-items: center; font: 20px "Songti SC", SimSun, serif; transform: rotate(-4deg); border-radius: 2px 0 3px 0; }
+    .eyebrow { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; line-height: 1.7; }
+    .edition { color: #7e8076; font-size: 10px; letter-spacing: .14em; }
+    .composition { width: 100%; flex: 1 1 0; min-height: 0; min-width: 0; display: grid; grid-template-columns: 34% 66%; grid-template-rows: minmax(0, 1fr); align-items: center; padding: clamp(12px, 5svh, 65px) 0 clamp(12px, 5svh, 75px); position: relative; }
+    .still-life { position: relative; margin: 15px 0 0 3vw; width: 70%; max-width: min(330px, 43svh); }
+    .photo { width: 100%; aspect-ratio: .73; object-fit: cover; filter: grayscale(1) sepia(.14); opacity: .77; display: block; background: #e5e5dc; }
+    .still-life::before { content: ""; position: absolute; inset: -14px 14px 14px -14px; border: 1px solid #d6d7cb; z-index: -1; }
+    .vertical-note { position: absolute; right: -36px; top: 0; writing-mode: vertical-rl; font: 12px "Songti SC", SimSun, serif; letter-spacing: .3em; color: var(--green); }
+    figcaption { margin-top: 18px; color: #7e8076; font-size: 9px; letter-spacing: .14em; display: flex; justify-content: space-between; }
+    .caption-accent { color: #986152; }
+    figcaption > span { white-space: nowrap; }
+    figcaption { gap: 6px; flex-wrap: wrap; }
+    .intro { --signature-inset: 8px; --name-size: min(clamp(90px, 12vw, 210px), 21svh); position: relative; z-index: 3; padding-left: 2vw; min-width: 0; }
+    /* Retain the original flow space so the name matrix does not move. */
+    .kicker { position: relative; --kicker-lift: 15px; top: calc(var(--kicker-offset, 0px) - var(--kicker-lift)); display: flex; gap: 14px; align-items: center; font-size: 10px; letter-spacing: .22em; color: var(--green); margin: 0 0 30px var(--signature-inset); }
+    .kicker::before { content: ""; width: 30px; height: 1px; background: #8b9685; }
+    h1 { font-family: Didot, "Bodoni MT", "Times New Roman", serif; font-size: var(--name-size); font-weight: 400; letter-spacing: -.06em; line-height: .88; margin: 0; }
+    h1 { display: contents; }
+    h1 span { display: block; }
+    h1 .given-name { grid-column: 1 / -1; grid-row: 1; justify-self: end; transform: translateX(-7vw); }
+    .name-block { display: grid; grid-template-columns: minmax(0, 1fr) max-content; column-gap: clamp(16px, 2vw, 32px); row-gap: clamp(20px, 3svh, 36px); align-items: end; }
+    .annotation-block { grid-column: 1; grid-row: 2; display: flex; align-items: flex-end; gap: clamp(12px, 1.5vw, 22px); min-width: 0; }
+    h1 .surname { grid-column: 2; grid-row: 2; justify-self: end; padding: 0; margin: 0; }
+    .signature-block { grid-column: 1; grid-row: 1; align-self: end; justify-self: start; display: flex; align-items: flex-end; gap: 9px; margin-left: var(--signature-inset); width: fit-content; }
+    .book-seal { flex-shrink: 0; width: 32px; height: 32px; writing-mode: vertical-rl; text-orientation: upright; display: flex; align-items: center; justify-content: center; border: 1px solid #986152; border-radius: 2px 1px 2px 0; color: #986152; background: rgb(152 97 82 / .035); box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 3px rgb(152 97 82 / .4); font: 10px "Songti SC", SimSun, serif; letter-spacing: .2em; }
+    .motto { margin: 0; min-width: 0; flex: 1; text-align: center; line-height: 1.9; }
+    .motto p { margin: 0; }
+    .motto .english { color: #4A5D4E; font-size: 1rem; letter-spacing: .01em; }
+    .motto .chinese { margin: 12px 0 0; color: #7B8277; font: .9rem/1.9 "Songti SC", SimSun, serif; letter-spacing: .12em; }
+    .motto .french { margin: 7px 0 0; color: #7B8277; font: italic .85rem/1.9 Georgia, "Times New Roman", serif; }
+    .chinese-signature { margin: 0; writing-mode: vertical-rl; color: #7B8277; font: 11px/1.6 "Songti SC", SimSun, serif; letter-spacing: .25em; }
+    .footer { border-top: 1px solid #dedfd5; padding-top: 21px; color: #7b8277; font-size: 10px; letter-spacing: .1em; }
+    .invitation { display: flex; align-items: center; gap: 12px; }
+    .invitation::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--green); opacity: .7; }
+    .poem { font: 12px "Songti SC", SimSun, serif; letter-spacing: .25em; }
+    #effects { position: fixed; inset: 0; height: 100svh; contain: strict; pointer-events: none; z-index: 2; overflow: hidden; }
+    .ink-drop { position: absolute; width: 66px; height: 66px; margin: -33px; border-radius: 47% 53% 61% 39%; background: radial-gradient(ellipse, rgb(33 39 33 / .48) 0%, rgb(47 52 45 / .24) 29%, rgb(63 68 58 / .10) 52%, transparent 72%); filter: blur(2px); animation: ink-spread 1100ms ease-out both; }
+    .memory { position: absolute; width: 155px; height: 190px; object-fit: cover; filter: grayscale(0.5) sepia(0.15); border-radius: 2px; --turn: 0deg; animation: memory-emerge 4500ms ease-in-out both; -webkit-mask-image: radial-gradient(ellipse, black 35%, transparent 74%); mask-image: radial-gradient(ellipse, black 35%, transparent 74%); }
+    @keyframes ink-spread { 0% { transform: scale(.12); opacity: 0; } 12% { opacity: .75; } 100% { transform: scale(2.4); opacity: 0; } }
+    @keyframes memory-emerge { 0% { opacity: 0; transform: translate(-50%, -50%) rotate(var(--turn)) scale(.83); } 28%, 48% { opacity: .55; } 100% { opacity: 0; transform: translate(-50%, -55%) rotate(var(--turn)) scale(1.08); } }
+    #brush { display: none; position: fixed; left: 0; top: 0; width: 24px; height: 100px; z-index: 10; pointer-events: none; transform-origin: 0 0; }
+    #brush svg { position: absolute; left: -4px; bottom: 100%; width: 24px; height: 100px; transform-origin: 4px 100%; transform: rotate(30deg); }
+    @media (hover: hover) and (pointer: fine) { html.brush-active, .brush-active body { cursor: none; } .brush-active #brush { display: block; } }
+    @media (min-width: 1600px) { .composition { max-width: 1650px; margin: auto; } }
+    @media (max-width: 700px) {
+      .hero { padding: 24px 7vw 22px; }
+      .edition { font-size: 8px; }
+      .composition { grid-template-columns: 1fr; grid-template-rows: auto auto; align-content: center; padding: 12px 0; gap: clamp(12px, 3svh, 36px); }
+      .still-life { width: min(34%, 17svh); margin: 0 0 0 7px; }
+      .photo { aspect-ratio: .95; }
+      figcaption { font-size: 7px; margin-top: 11px; }
+      .intro { --signature-inset: 3px; --name-size: min(23vw, 14svh); padding-left: 0; }
+      .kicker { margin: 0 0 22px var(--signature-inset); font-size: 8px; }
+      .name-block { column-gap: 12px; row-gap: 22px; }
+      .annotation-block { gap: 10px; }
+      h1 .surname { font-size: .65em; }
+      .signature-block { gap: 6px; }
+      .book-seal { width: 30px; height: 30px; }
+      .motto { margin: 0; }
+      .poem { display: none; }
+      .footer { font-size: 8px; letter-spacing: .03em; }
+    }
+    @media (prefers-reduced-motion: reduce) { #effects { display: none; } }
+    #soft-transition { position:fixed; inset:0; z-index:99999; pointer-events:none; opacity:0; background:rgba(255,255,255,.18); filter:blur(0); transition:opacity .6s ease-in-out,filter .6s ease-in-out; }
+  </style>
+</head>
+<body>
+  <main class="hero">
+    <header class="masthead">
+      <div class="signature"><span class="seal" aria-hidden="true">朱</span><span class="eyebrow">Huihui ZHU<br>Words & Worlds</span></div>
+      <a class="edition" href="works.html">文学 · 观察 · 创作</a>
+    </header>
+    <div class="composition">
+      <figure class="still-life">
+        <img class="photo" src="images/dew_on_buds.jpg" alt="花苞上凝结的露珠" fetchpriority="high">
+        <span class="vertical-note">在留白处，听见万物。</span>
+        <figcaption><span>一隅<span class="caption-accent">安</span>·<span class="caption-accent">乐</span>蘅芜</span><span>01 — STILLNESS</span></figcaption>
+      </figure>
+      <section class="intro" aria-label="个人简介">
+        <p class="kicker">A LIFE BETWEEN THE LINES</p>
+        <div class="name-block">
+          <h1 aria-label="Huihui ZHU"><span class="given-name">Huihui</span><span class="surname">ZHU</span></h1>
+          <div class="signature-block">
+            <span class="book-seal" aria-label="藏书印：安乐">安乐</span>
+            <span class="chinese-signature">朱慧慧</span>
+          </div>
+          <div class="annotation-block">
+            <div class="motto">
+              <p class="english" lang="en">I reach for what has not yet fallen.</p>
+              <p class="chinese">唯风流遐想不可负</p>
+              <p class="french" lang="fr">Il y a en moi un été invincible.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer class="footer"><span class="invitation" id="interaction-hint">移动笔尖，让灵感在纸上洇开</span><span class="poem">字里有山河，心中有旷野</span><span>© <span id="year">2026</span> HUIHUI ZHU</span></footer>
+  </main>
+  <div id="soft-transition" aria-hidden="true"></div>
+  <div id="effects" aria-hidden="true"></div>
+  <div id="brush" aria-hidden="true"><svg viewBox="0 0 24 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bamboo"><stop stop-color="#665741"/><stop offset=".45" stop-color="#b09a73"/><stop offset="1" stop-color="#786549"/></linearGradient></defs><path d="M10 4Q13 1 16 4L13 69H7Z" fill="url(#bamboo)"/><path d="M7 66h6v7H7z" fill="#353830"/><path d="M7 73Q1 84 4 100Q6 94 11 87Q15 79 13 73Z" fill="#252b25"/><path d="M9 76Q5 87 4 97" fill="none" stroke="#74776a" stroke-width=".6"/></svg></div>
+  <script>
+    (() => {
+      const brush = document.getElementById('brush');
+      const effects = document.getElementById('effects');
+      const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+      const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+      const coreSources = ['trees_green_sea.jpg','dew_on_buds.jpg','ski_tree.jpg','bird_water_hose.jpg','dog_soil_mouth.jpg'];
+      const deferredSources = ['drip_car_window.jpg','extraterrestrial_sky.jpg','green_human_bones.jpg','marguerite.jpg','old_scopes.jpg','tree_pool.jpg','wet_red_leaves.jpg'];
+      const sources = [...coreSources, ...deferredSources].map(filename => `images/${filename}`);
+      const MAX_VISIBLE_PHOTOS = 8;
+      const photos = [];
+      let warmed = false, lastTime = 0, lastX = null, lastY = null, sequence = 0;
+      document.getElementById('year').textContent = new Date().getFullYear();
+      function updateHint() {
+        document.getElementById('interaction-hint').textContent = reducedMotion.matches || !finePointer.matches
+          ? '以文字为舟，赴山河之约' : '移动笔尖，让灵感在纸上洇开';
+        if (!finePointer.matches) hideBrush();
+        if (reducedMotion.matches) effects.replaceChildren();
+      }
+      function warmPhotos() {
+        if (warmed) return;
+        warmed = true;
+        const load = (src, lazy = false) => {
+          const img = new Image();
+          if (lazy) img.loading = 'lazy';
+          img.decoding = 'async';
+          img.src = src;
+          // Decode before adding to the pool to avoid a first-frame hitch.
+          img.decode().then(() => photos.push(img)).catch(() => {
+            // Unavailable images never enter the animation pool.
+          });
+        };
+        coreSources.map(filename => `images/${filename}`).forEach(src => load(src));
+        const defer = () => deferredSources.map(filename => `images/${filename}`).forEach(src => load(src, true));
+        if ('requestIdleCallback' in window) requestIdleCallback(defer, { timeout: 1800 });
+        else setTimeout(defer, 900);
+      }
+      function removeAfterAnimation(node) {
+        node.addEventListener('animationend', () => node.remove(), { once: true });
+      }
+      function bloom(x, y) {
+        if (effects.childElementCount >= 24) return;
+        const ink = document.createElement('div');
+        ink.className = 'ink-drop';
+        ink.style.left = `${x}px`; ink.style.top = `${y}px`;
+        effects.appendChild(ink);
+        removeAfterAnimation(ink);
+        // Photography emerges as the ink disperses, using preloaded images only.
+        if (photos.length && effects.querySelectorAll('.memory').length < MAX_VISIBLE_PHOTOS) {
+          const photo = photos[sequence++ % photos.length].cloneNode();
+          photo.alt = ''; photo.className = 'memory';
+          photo.style.left = `${x}px`; photo.style.top = `${y}px`;
+          photo.style.setProperty('--turn', `${Math.random() * 16 - 8}deg`);
+          photo.style.animationDelay = '650ms';
+          effects.appendChild(photo);
+          removeAfterAnimation(photo);
+        }
+      }
+      window.addEventListener('pointermove', event => {
+        if (!finePointer.matches || event.pointerType === 'touch') return;
+        const { clientX: x, clientY: y } = event;
+        brush.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        document.documentElement.classList.add('brush-active');
+        if (reducedMotion.matches) return;
+        warmPhotos();
+        const now = performance.now();
+        if (now - lastTime < 400 || (lastX !== null && Math.hypot(x - lastX, y - lastY) < 48)) return;
+        bloom(x, y); lastTime = now; lastX = x; lastY = y;
+      }, { passive: true });
+      function hideBrush() { document.documentElement.classList.remove('brush-active'); lastX = lastY = null; }
+      document.documentElement.addEventListener('pointerleave', hideBrush);
+      window.addEventListener('blur', hideBrush);
+      document.addEventListener('visibilitychange', () => { if (document.hidden) { hideBrush(); effects.replaceChildren(); } });
+      finePointer.addEventListener('change', updateHint);
+      reducedMotion.addEventListener('change', updateHint);
+      updateHint();
+      warmPhotos();
+    })();
+  </script>
+  <script>
+    (() => {
+      const kicker = document.querySelector('.kicker');
+      const photo = document.querySelector('.still-life .photo');
+      let offset = 0;
+      let frame = 0;
+      function alignKicker() {
+        // Relative positioning preserves the exact layout of ZHU and the motto.
+        const lift = parseFloat(getComputedStyle(kicker).getPropertyValue('--kicker-lift')) || 0;
+        const originalTop = kicker.getBoundingClientRect().top - offset + lift;
+        offset = photo.getBoundingClientRect().top - 10 - originalTop;
+        kicker.style.setProperty('--kicker-offset', `${offset}px`);
+      }
+      function scheduleAlignment() {
+        cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(alignKicker);
+      }
+      if ('ResizeObserver' in window) {
+        const observer = new ResizeObserver(scheduleAlignment);
+        ['.composition', '.still-life', '.intro', '.kicker'].forEach(selector => {
+          observer.observe(document.querySelector(selector));
+        });
+      }
+      window.addEventListener('resize', scheduleAlignment, { passive: true });
+      photo.addEventListener('load', scheduleAlignment);
+      document.fonts.ready.then(scheduleAlignment);
+      alignKicker();
+    })();
+  </script>
+  <script>
+    (() => {
+      const overlay=document.getElementById('soft-transition'), reduced=matchMedia('(prefers-reduced-motion: reduce)');
+      const targets=[...document.querySelectorAll('.edition,.signature,.still-life,.signature-block,.intro')];
+      targets.forEach(target=>target.addEventListener('click',e=>{ e.preventDefault(); if(reduced.matches){location.href='works.html';return;} overlay.style.opacity='1'; overlay.style.filter='blur(20px)'; setTimeout(()=>{sessionStorage.setItem('softTransition','active');location.href='works.html';},620); }));
+    })();
+  </script>
+</body>
+</html>

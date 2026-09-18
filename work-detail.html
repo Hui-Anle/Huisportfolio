@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#FDFBF7"><title>作品列表 · Huihui ZHU</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Ma+Shan+Zheng&display=swap" rel="stylesheet"><style>
+    :root { color-scheme: light; --paper: #FDFBF7; --ink: #1A1A1A; --green: #4A5D4E; --muted: #7B8277; }
+    * { box-sizing: border-box; }
+    body { overflow-x:hidden; margin:0; padding:0; background: var(--paper); color: var(--ink); font-family: "Songti SC", "Noto Serif CJK SC", SimSun, Georgia, serif; }
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible { outline: 1px solid var(--green); outline-offset: 6px; }
+    img { display: block; width: 100%; object-fit: cover; }
+    figure { margin: 0; }
+    .masthead { padding: 35px 4.5vw; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-family: Arial, "PingFang SC", sans-serif; }
+    .signature { display: flex; align-items: center; gap: 15px; }
+    .signature, .back { cursor:pointer; }
+    .seal { width: 31px; height: 35px; border: 1px solid #986152; color: #986152; display: grid; place-items: center; font: 20px "Songti SC", SimSun, serif; transform: rotate(-4deg); }
+    .eyebrow { color:#fff; font-size:10px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; line-height:1.7; text-shadow:0 1px 4px rgb(0 0 0 / .8); }
+    .masthead nav { display: flex; gap: 25px; color: var(--muted); font-size: 10px; letter-spacing: .14em; }
+    .masthead a:hover { color: var(--green); }
+
+    .masthead { position:absolute; inset:0 auto auto 0; z-index:20; }
+    .video-stage { position:relative; width:100%; min-height:100vh; overflow:hidden; background:var(--paper); }
+    .titles-layer { position:absolute; top:0; left:0; width:100%; height:var(--doc-h, 100%); z-index:10; display:flex; flex-direction:column; isolation:isolate; }
+    h1 { position:absolute; width:1px; height:1px; clip-path:inset(50%); overflow:hidden; }
+    .work-list { display:flex; flex:1 1 auto; flex-direction:column; width:100%; margin:0; padding:0; list-style:none; }
+    .work-row { flex:0 0 var(--seg-h, auto); min-height:0; display:flex; flex-direction:column; justify-content:center; align-items:center; view-timeline-name:--work; view-timeline-axis:block; }
+    .work-background { position:relative; top:0; left:0; display:block; width:100%; height:auto; z-index:0; margin:0; padding:0; pointer-events:none; opacity:1; background:#FDFBF7; transform:none; filter:none; }
+    .work-text { position:relative; z-index:2; text-align:center; color:#fff; text-shadow:0 2px 14px rgb(0 0 0 / .45); }
+    .work-link { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; padding:24px; color:#000; }
+    .work-link::before { content:""; position:absolute; inset:-45px -30px; background:radial-gradient(ellipse, rgb(253 251 247 / .9), transparent 72%); z-index:-1; pointer-events:auto; }
+    .work-title { display:inline-block; font:400 clamp(1.5rem,4vw,3rem)/1.3 "Ma Shan Zheng","KaiTi","STKaiti","Kaiti SC",serif; white-space:nowrap; color:#000; transform-origin:center; will-change:transform,opacity; }
+    .work-link:hover .work-title { color:#000; }
+    .translation { position:relative; color:#000; font:400 clamp(15px,1.8vw,24px)/1.5 "Caveat","Segoe Script","Brush Script MT",cursive; margin:clamp(34px,4vw,64px) 0 0; max-width:90vw; transform-origin:center; will-change:transform,opacity; }
+    .translation span { display:block; }
+    .translation .translation-fr { margin-top:.15em; }
+    .back { position:fixed; top:30px; right:4.5vw; z-index:21; padding:12px 16px; background:rgb(255 255 255 / .15); color:#fff; border:1px solid rgb(255 255 255 / .4); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); font-size:10px; text-shadow:0 1px 4px rgb(0 0 0 / .8); transition:background .25s ease,border-color .25s ease; }
+    .back:hover { background:rgb(255 255 255 / .28); border-color:rgb(255 255 255 / .7); }
+    @keyframes title-grow { 0%, 100% { transform:scale(1); } 50% { transform:scale(3); } }
+    @keyframes subtitle-grow { 0%, 100% { transform:scale(1); } 50% { transform:translateY(clamp(70px,8vw,130px)) scale(3); } }
+    @keyframes background-reveal { from,to { opacity:1; transform:none; } }
+    @supports (animation-timeline: view()) { .work-title,.translation { animation:none; } }
+    /* Event-based fallback for browsers without CSS scroll timelines; no scroll polling. */
+    .fallback .work-title,.fallback .translation { transition:transform 600ms ease; }
+    .fallback .is-centered .work-title { transform:scale(3); }
+    .fallback .is-centered .translation { transform:translateY(clamp(70px,8vw,130px)) scale(3); }
+    @media(max-width:600px) { .masthead { padding:24px 7vw; } .back { top:22px; right:4vw; } .work-title { font-size:7vw; } }
+    @media(prefers-reduced-motion:reduce) {
+      .work-title,.work-background,.translation { animation:none!important; transition:none!important; transform:none!important; }
+    }
+</style></head><body>
+  <header class="masthead">
+    <a class="signature" href="index.html" aria-label="Huihui ZHU 首页"><span class="seal" aria-hidden="true">朱</span><span class="eyebrow">Huihui ZHU<br>Words & Worlds</span></a>
+
+  </header>
+<a class="back" href="works.html">← 返回类别 Back</a>
+<div class="video-stage">
+<video id="bg-video" class="work-background" muted playsinline loop autoplay aria-hidden="true"></video>
+<main class="titles-layer"><h1 id="category-title">作品列表</h1><ul class="work-list" id="work-list"></ul></main>
+</div>
+<script>
+(() => {
+// Single source of truth for each category: video and the ordered title records.
+const categoryData = {
+  "creation": {
+    "label": "创作 / Creation / Création",
+    "video": "videos/pinkbook.mp4",
+    "titles": [
+      {
+        "id": "01",
+        "title": "梦集",
+        "en": "Dream Collection",
+        "fr": "Recueil de rêves"
+      },
+      {
+        "id": "02",
+        "title": "小说",
+        "en": "Fiction",
+        "fr": "Fiction"
+      },
+      {
+        "id": "03",
+        "title": "诗歌",
+        "en": "Poetry",
+        "fr": "Poésie"
+      },
+      {
+        "id": "04",
+        "title": "散文",
+        "en": "Prose",
+        "fr": "Prose"
+      },
+      {
+        "id": "05",
+        "title": "信函",
+        "en": "Correspondence",
+        "fr": "Correspondance"
+      }
+    ]
+  },
+  "contemplation": {
+    "label": "观照 / Reflection / Réflexion",
+    "video": "videos/ancientlife.mp4",
+    "titles": [
+      {
+        "id": "06",
+        "title": "影评",
+        "en": "Film Criticism",
+        "fr": "Critique cinématographique"
+      },
+      {
+        "id": "07",
+        "title": "读后感",
+        "en": "Reading Reflections",
+        "fr": "Réflexions de lecture"
+      },
+      {
+        "id": "08",
+        "title": "红楼文评",
+        "en": "Criticism of Dream of the Red Chamber",
+        "fr": "Critique du Rêve dans le pavillon rouge"
+      }
+    ]
+  },
+  "theory": {
+    "label": "文论 / Literary Theory / Théorie littéraire",
+    "video": "videos/feminist.mp4",
+    "titles": [
+      {
+        "id": "10",
+        "title": "诗歌翻译",
+        "en": "Poetry Translation",
+        "fr": "Traduction poétique"
+      },
+      {
+        "id": "11",
+        "title": "修辞习作",
+        "en": "Exercises in Rhetoric",
+        "fr": "Exercices de rhétorique"
+      },
+      {
+        "id": "12",
+        "title": "性别文学",
+        "en": "Gender and Literature",
+        "fr": "Genre et littérature"
+      },
+      {
+        "id": "13",
+        "title": "戏剧分析",
+        "en": "Drama Analysis",
+        "fr": "Analyse dramatique"
+      }
+    ]
+  }
+};
+  const requestedRaw = new URLSearchParams(location.search).get('category');
+  const requested = requestedRaw === 'reflection' ? 'contemplation' : requestedRaw;
+  const key = Object.hasOwn(categoryData, requested) ? requested : 'creation';
+  const category = categoryData[key];
+  const bgVideo = document.getElementById('bg-video');
+  bgVideo.src = category.video;
+  bgVideo.playbackRate = key === 'theory' ? 0.25 : 1;
+  bgVideo.load();
+  bgVideo.play().catch(() => {});
+  document.getElementById('category-title').textContent = category.label;
+  document.title = `${category.label.split(' / ')[0]} · Huihui ZHU`;
+  const list = document.getElementById('work-list');
+  list.style.setProperty('--title-count', category.titles.length);
+  category.titles.forEach(work => {
+    const row = document.createElement('li'); row.className = 'work-row';
+    const href = key === 'creation' && work.id === '01'
+      ? 'article-mengji.html'
+      : key === 'creation' && work.id === '02'
+        ? 'article-xiaoshuo.html'
+        : key === 'creation' && work.id === '03'
+          ? 'article-poetry.html'
+        : key === 'creation' && work.id === '04'
+          ? 'article-prose.html'
+        : key === 'creation' && work.id === '05'
+          ? 'article-correspondence.html'
+        : key === 'contemplation' && work.id === '06'
+          ? 'article-film-review.html?article=lalaland'
+        : key === 'contemplation' && work.id === '07'
+          ? 'article-reading.html'
+        : `article.html?category=${key}&work=${work.id}`;
+    const text = document.createElement('div'); text.className = 'work-text';
+    const link = document.createElement('a'); link.className = 'work-link'; link.href = href;
+    const title = document.createElement('span'); title.className = 'work-title'; title.textContent = work.title;
+    const translation = document.createElement('p'); translation.className = 'translation';
+    const en = document.createElement('span'); en.lang = 'en'; en.textContent = work.en;
+    const fr = document.createElement('span'); fr.lang = 'fr'; fr.textContent = work.fr;
+    en.className = 'translation-en';
+    fr.className = 'translation-fr';
+    translation.append(en, fr); link.append(title, translation); text.append(link); row.append(text); list.append(row);
+  });
+  // Scroll-driven title scale: one rAF per frame, based on distance to viewport center.
+  const stage = document.querySelector('.video-stage');
+  const layout = () => {
+    const ratio = bgVideo.videoWidth && bgVideo.videoHeight ? bgVideo.videoHeight / bgVideo.videoWidth : 16 / 9;
+    const docHeight = Math.max(stage.clientWidth * ratio, window.innerHeight);
+    stage.style.setProperty('--doc-h', `${docHeight}px`);
+    stage.style.setProperty('--seg-h', `${docHeight / category.titles.length}px`);
+  };
+  let frame = 0;
+  const updateTitles = () => {
+    frame = 0;
+    const center = window.innerHeight / 2;
+    list.querySelectorAll('.work-row').forEach(row => {
+      const rect = row.getBoundingClientRect();
+      const distance = Math.abs((rect.top + rect.height / 2) - center);
+      const progress = Math.max(0, 1 - distance / Math.max(center, 1));
+      const scale = 1 + progress * .25;
+      const opacity = .2 + progress * .8;
+      row.querySelector('.work-title').style.transform = `scale(${scale})`;
+      row.querySelector('.work-title').style.opacity = opacity;
+      row.querySelector('.translation').style.transform = `scale(${scale})`;
+      row.querySelector('.translation').style.opacity = opacity;
+    });
+  };
+  const requestTitleUpdate = () => { layout(); if (!frame) frame = requestAnimationFrame(updateTitles); };
+  window.addEventListener('scroll', requestTitleUpdate, { passive:true });
+  window.addEventListener('resize', requestTitleUpdate);
+  bgVideo.addEventListener('loadedmetadata', requestTitleUpdate);
+  bgVideo.addEventListener('error', requestTitleUpdate);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(requestTitleUpdate);
+  requestTitleUpdate();
+})();
+</script></body></html>
