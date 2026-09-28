@@ -200,7 +200,32 @@
       .mengji .reading .passage .original,.mengji .reading .passage .translation-left,.mengji .reading .passage .translation-right { grid-column:1; grid-row:auto; width:100% !important; }
     }
   </style>
-</head>
+<style>
+/* Reading controls: overlays do not reserve horizontal space. */
+.reading-toolbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 4.5vw;background:rgba(253,251,247,.94);border-top:1px solid rgba(123,130,119,.15);border-bottom:1px solid rgba(123,130,119,.2);backdrop-filter:blur(8px)}
+.reading-toolbar button{border:0;background:transparent;color:var(--muted);padding:7px 12px;font:11px/1.4 Arial,sans-serif;letter-spacing:.08em;cursor:pointer}.reading-toolbar button.active{color:var(--ink);border-bottom:1px solid var(--green)}.reading-toolbar .toc-button{margin-right:18px;color:var(--green)}
+.toc-backdrop{position:fixed;inset:0;z-index:40;background:rgba(26,26,26,.22);opacity:0;pointer-events:none;transition:opacity .25s}.toc-backdrop.open{opacity:1;pointer-events:auto}.toc-drawer{position:fixed;top:0;left:0;bottom:0;z-index:41;width:min(360px,88vw);padding:76px 30px 30px;background:var(--paper);box-shadow:12px 0 35px rgba(26,26,26,.12);transform:translateX(-105%);transition:transform .3s ease;overflow:auto}.toc-drawer.open{transform:translateX(0)}.toc-close{position:absolute;right:20px;top:18px;border:0;background:none;color:var(--muted);font-size:24px;cursor:pointer}.toc-drawer h2{margin:0 0 24px;color:var(--green);font-size:18px;font-weight:400}.toc-list a{display:block;padding:10px 0;color:var(--muted);font-size:13px;line-height:1.6;border-bottom:1px solid rgba(123,130,119,.15)}.toc-list a:hover,.toc-list a.current{color:var(--ink)}
+bodybody.reading-single .reading .passage{display:block!important;width:min(760px,calc(100% - 48px))!important;margin-left:auto!important;margin-right:auto!important}body.reading-single .reading .passage .original{display:block!important;width:100%!important;text-align:left!important;font-size:1.2rem!important;line-height:2!important}body.reading-single .reading .passage .translation{display:none!important}body.reading-single[data-language="en"] .reading .passage .original,body.reading-single[data-language="fr"] .reading .passage .original{display:none!important}body.reading-single[data-language="en"] .reading .passage .translation-left,body.reading-single[data-language="fr"] .reading .passage .translation-right{display:block!important;width:100%!important;color:var(--ink)!important;font-size:1.05rem!important;line-height:2!important;padding:0!important;border:0!important}body.reading-single[data-language="en"] .reading .passage .translation-left,body.reading-single[data-language="fr"] .reading .passage .translation-right{margin:0!important}body.reading-parallel .reading .passage{overflow:visible;max-width:100%;}
+@media(max-width:600px){.reading-toolbar{justify-content:flex-start;overflow-x:auto;white-space:nowrap;padding-left:24px}.reading-toolbar .toc-button{margin-right:8px}.reading-toolbar button{flex:0 0 auto}body.reading-parallel .reading .passage{display:flex!important;flex-direction:column!important;width:calc(100% - 48px)!important;gap:14px!important}body.reading-parallel .reading .passage .original,body.reading-parallel .reading .passage .translation-left,body.reading-parallel .reading .passage .translation-right{width:100%!important;max-width:100%!important;min-width:0!important;order:initial!important}body.reading-parallel .reading .passage .translation{padding-left:14px!important;border-left:1px solid #d9ddd3!important}}
+body.mengji .hero-image{width:100%;margin-left:0;transform:none;}
+/* Single-language mode only: reset the inherited three-column placement. */
+body.reading-single .reading .passage{display:block!important;grid-template-columns:none!important;column-gap:0!important;gap:0!important;width:min(760px,calc(100% - 48px))!important;max-width:760px!important;margin:0 auto 2rem!important;padding:0!important;transform:none!important;position:static!important;}
+body.reading-single .reading .passage .original,body.reading-single .reading .passage .translation-left,body.reading-single .reading .passage .translation-right{grid-column:auto!important;grid-row:auto!important;float:none!important;position:static!important;transform:none!important;margin:0 auto!important;padding:0!important;border:0!important;box-shadow:none!important;width:100%!important;max-width:100%!important;min-width:0!important;text-align:left!important;}
+body.reading-single .reading .passage .original{font-size:1.2rem!important;line-height:2!important;color:var(--ink)!important;}
+body.reading-single .reading .passage .translation{font-size:1.12rem!important;line-height:2!important;color:var(--ink)!important;}
+body.reading-single .reading .passage .translation-left,body.reading-single .reading .passage .translation-right{display:none!important;}
+body.reading-single[data-language="en"] .reading .passage .original,body.reading-single[data-language="fr"] .reading .passage .original{display:none!important;}
+body.reading-single[data-language="en"] .reading .passage .translation-left,body.reading-single[data-language="fr"] .reading .passage .translation-right{display:block!important;}
+@media(max-width:600px){body.reading-single .reading .passage{width:calc(100% - 40px)!important;max-width:none!important;margin-left:auto!important;margin-right:auto!important;}body.reading-single .reading .passage .original,body.reading-single .reading .passage .translation{font-size:1.08rem!important;line-height:1.95!important;}}
+/* Dream title translations share one data source and follow the reading mode. */
+.dream-title-translations{writing-mode:horizontal-tb!important;text-orientation:mixed!important;text-align:center;color:var(--muted);font:12px/1.7 Georgia,"Songti SC",serif;letter-spacing:.03em;width:min(620px,calc(100% - 48px));margin:-34px auto 42px;padding:0 10px;}
+.dream-title-translations span{display:none}.dream-title-translations .title-en,.dream-title-translations .title-fr{display:block}
+body.reading-single[data-language="zh"] .dream-title-translations .title-en,body.reading-single[data-language="zh"] .dream-title-translations .title-fr{display:none}
+body.reading-single[data-language="en"] .dream-title-translations .title-fr{display:none}
+body.reading-single[data-language="en"] .dream-title-translations .title-en,body.reading-single[data-language="fr"] .dream-title-translations .title-fr{display:block}
+body.reading-single[data-language="fr"] .dream-title-translations .title-en{display:none}
+@media(max-width:600px){.dream-title-translations{width:calc(100% - 40px);margin:-24px auto 34px;font-size:11px;}}
+.toc-list a .toc-zh,.toc-list a .toc-en,.toc-list a .toc-fr{display:block;line-height:1.55}.toc-list a .toc-zh{color:var(--ink)}.toc-list a .toc-en,.toc-list a .toc-fr{font-size:.88em;color:var(--muted)}.toc-list a{margin-bottom:22px;padding-top:2px;padding-bottom:14px}.toc-list a:last-child{margin-bottom:0}</style></head>
 <body class="mengji">
   <header class="masthead">
     <a class="signature" href="index.html" aria-label="Huihui ZHU 首页"><span class="seal" aria-hidden="true">朱</span><span class="eyebrow">Huihui ZHU<br>Words & Worlds</span></a>
@@ -221,6 +246,13 @@
           <div class="author-lines"><span>朱慧慧（笔名：安乐）</span><span>Huihui ZHU (Pseudonym: Hui-Anle)</span><span>ZHU Huihui (Pseudonyme : Hui-Anle)</span></div>
         </div>
       </header>
+      <div class="reading-toolbar" role="toolbar" aria-label="阅读模式">
+        <button type="button" class="toc-button" id="toc-open"><span id="toc-label">目录</span></button>
+        <button type="button" data-mode="parallel" class="active">三语对照</button>
+        <button type="button" data-mode="zh">中文</button>
+        <button type="button" data-mode="en">EN</button>
+        <button type="button" data-mode="fr">FR</button>
+      </div>
       <div class="reading">
         <section id="introduction" aria-label="引言">
           <!-- Replacement slot: intro-p01; ZH / EN / FR -->
@@ -345,5 +377,33 @@ words。梦境场景兼有中文、法文与英文，但记录本身以中文为
     </article>
     <footer class="closing"><a class="return-link" href="work-detail.html?category=creation">← 返回作品集 Back</a></footer>
   </main>
-</body>
+<div class="toc-backdrop" id="toc-backdrop"></div><aside class="toc-drawer" id="toc-drawer" aria-hidden="true" aria-label="梦集目录"><button class="toc-close" id="toc-close" type="button" aria-label="关闭目录">×</button><h2 id="toc-title">梦集目录</h2><nav class="toc-list" id="toc-list">
+<a href="#dream-1" data-dream-key="dream-1"><span class="toc-zh">第一梦：象骨管风琴</span><span class="toc-en">First Dream: The Elephant-Bone Organ</span><span class="toc-fr">Premier rêve : L’orgue en os d’éléphant</span></a>
+<a href="#dream-2" data-dream-key="dream-2"><span class="toc-zh">第二梦：愚昧之下的狡黠</span><span class="toc-en">Second Dream: Cunning Beneath Folly</span><span class="toc-fr">Deuxième rêve : La ruse sous la sottise</span></a>
+<a href="#dream-3" data-dream-key="dream-3"><span class="toc-zh">第三梦：银嫦娥教室</span><span class="toc-en">Third Dream: The Silver Chang’e Classroom</span><span class="toc-fr">Troisième rêve : La salle de classe de Chang’e d’argent</span></a>
+</nav></aside><script>
+const DREAM_TITLES={
+  'dream-1':{zh:'第一梦：象骨管风琴',en:'First Dream: The Elephant-Bone Organ',fr:'Premier rêve : L’orgue en os d’éléphant'},
+  'dream-2':{zh:'第二梦：愚昧之下的狡黠',en:'Second Dream: Cunning Beneath Folly',fr:'Deuxième rêve : La ruse sous la sottise'},
+  'dream-3':{zh:'第三梦：银嫦娥教室',en:'Third Dream: The Silver Chang’e Classroom',fr:'Troisième rêve : La salle de classe de Chang’e d’argent'}
+};
+const DREAM_MODE_LABEL=mode=>mode==='en'?'en':mode==='fr'?'fr':'zh';
+function setupDreamTitles(){document.querySelectorAll('.reading > section[id^="dream-"] > h2[id]').forEach(h=>{const key=h.closest('section').id,t=DREAM_TITLES[key];if(!t)return;h.textContent=t.zh;h.dataset.dreamKey=key;const block=document.createElement('div');block.className='dream-title-translations';block.dataset.dreamKey=key;block.innerHTML='<span class="title-en">'+t.en+'</span><span class="title-fr">'+t.fr+'</span>';h.insertAdjacentElement('afterend',block);});}
+setupDreamTitles();
+(()=>{
+ const body=document.body, toolbar=document.querySelector('.reading-toolbar'), drawer=document.getElementById('toc-drawer'), backdrop=document.getElementById('toc-backdrop');
+ const close=()=>{drawer.classList.remove('open');backdrop.classList.remove('open');drawer.setAttribute('aria-hidden','true');document.getElementById('toc-open').focus()};
+ const open=()=>{drawer.classList.add('open');backdrop.classList.add('open');drawer.setAttribute('aria-hidden','false');drawer.querySelector('a')?.focus()};
+ document.getElementById('toc-open').addEventListener('click',open);document.getElementById('toc-close').addEventListener('click',close);backdrop.addEventListener('click',close);document.addEventListener('keydown',e=>{if(e.key==='Escape'&&drawer.classList.contains('open'))close()});
+ const list=document.getElementById('toc-list');
+ const entries=[...document.querySelectorAll('.reading > section[id], .reading > section > h2[id]')];
+ const add=(id,label,level=0)=>{if(!id)return;const a=document.createElement('a');a.href='#'+id;a.dataset.dreamKey=id;a.style.paddingLeft=(level*14)+'px';const t=DREAM_TITLES[id];if(t)a.innerHTML='<span class="toc-zh">'+t.zh+'</span><span class="toc-en">'+t.en+'</span><span class="toc-fr">'+t.fr+'</span>';else a.textContent=label;a.addEventListener('click',e=>{e.preventDefault();document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});close()});list.appendChild(a)};
+ list.querySelectorAll('a[data-dream-key]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();document.getElementById(a.getAttribute('href').slice(1))?.scrollIntoView({behavior:'smooth',block:'start'});close()}));
+ const updateDreamLabels=mode=>{const lang=DREAM_MODE_LABEL(mode);const label=mode==='parallel'?'目录 / Contents / Sommaire':mode==='en'?'Contents':mode==='fr'?'Sommaire':'目录';const title=mode==='parallel'?'梦集目录\nDream Collection — Contents\nRecueil de rêves — Sommaire':mode==='en'?'Dream Collection — Contents':mode==='fr'?'Recueil de rêves — Sommaire':'梦集目录';document.getElementById('toc-label').textContent=label;document.getElementById('toc-title').innerHTML=title.replace(/\n/g,'<br>');document.querySelectorAll('.toc-list a[data-dream-key]').forEach(a=>{const t=DREAM_TITLES[a.dataset.dreamKey];if(t){a.querySelector('.toc-zh').textContent=t.zh;a.querySelector('.toc-en').textContent=t.en;a.querySelector('.toc-fr').textContent=t.fr}});document.querySelectorAll('.dream-title-translations').forEach(block=>{block.querySelector('.title-en').textContent=DREAM_TITLES[block.dataset.dreamKey].en;block.querySelector('.title-fr').textContent=DREAM_TITLES[block.dataset.dreamKey].fr})};
+ const setMode=mode=>{body.classList.remove('reading-parallel','reading-single');body.removeAttribute('data-language');if(mode==='parallel')body.classList.add('reading-parallel');else{body.classList.add('reading-single');body.dataset.language=mode}updateDreamLabels(mode);toolbar.querySelectorAll('button[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode))};
+ toolbar.querySelectorAll('button[data-mode]').forEach(btn=>btn.addEventListener('click',()=>{const current=[...document.querySelectorAll('.reading > section[id], .reading .passage[id]')].find(el=>{const r=el.getBoundingClientRect();return r.top<=innerHeight*.45&&r.bottom>=innerHeight*.45});const id=current?.id;setMode(btn.dataset.mode);if(id)requestAnimationFrame(()=>document.getElementById(id)?.scrollIntoView({block:'center'}))}));
+ setMode(matchMedia('(max-width:600px)').matches?'zh':'parallel');
+ const observer=new IntersectionObserver(items=>items.forEach(x=>{if(x.isIntersecting){list.querySelectorAll('a').forEach(a=>a.classList.toggle('current',a.getAttribute('href')==='#'+x.target.id))}}),{rootMargin:'-20% 0px -65% 0px'});document.querySelectorAll('.reading > section[id^="dream-"],#introduction').forEach(x=>observer.observe(x));
+})();
+</script></body>
 </html>

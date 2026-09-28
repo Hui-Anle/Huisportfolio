@@ -63,7 +63,8 @@
       .float-image { float: none; width: 100%; margin: 0 0 28px; }
       .float-image img { aspect-ratio: 4 / 3; }
     }
-  </style>
+  .work-entry-title{text-align:center;color:var(--green);font-size:clamp(1.8rem,4vw,3rem);font-weight:600;line-height:1.4;margin:0 auto 2.5rem;padding:0 5vw;}
+</style>
   <style>
     .return-link { position:fixed; right:4.5vw; bottom:max(25px, env(safe-area-inset-bottom)); z-index:10; padding:12px 16px; background:#FDFBF7; }
   </style>
@@ -102,9 +103,9 @@
           <div class="author-lines"><span>朱慧慧（笔名：安乐）</span><span>Huihui ZHU (Pseudonym: Hui-Anle)</span><span>ZHU Huihui (Pseudonyme : Hui-Anle)</span></div>
         </div>
       </header>
-      <div class="reading">
+      <div class="work-entry-title" aria-label="第一封：《感谢信》">第一封：《感谢信》</div><div class="reading">
         <section class="passage" aria-label="第 1 段及翻译">
-          <div class="original" lang="zh-CN"><p>《感谢信》</p></div>
+          <div class="original" lang="zh-CN"></div>
           <aside class="translation translation-left" lang="en"><span class="language">EN</span><p>A Letter of Thanks</p></aside>
           <aside class="translation translation-right" lang="fr"><span class="language">FR</span><p>Lettre de remerciement</p></aside>
         </section>
@@ -289,5 +290,6 @@
   document.getElementById('article-list').href = back;
 })();
 </script>
+<script src="js/reading-modes.js"></script>
 </body>
 </html>

@@ -178,6 +178,12 @@ const categoryData = {
           ? 'article-film-review.html?article=lalaland'
         : key === 'contemplation' && work.id === '07'
           ? 'article-reading.html'
+        : key === 'contemplation' && work.id === '08'
+          ? 'article-honglou.html'
+        : key === 'theory' && work.id === '11'
+          ? 'article-rhetorique.html'
+        : key === 'theory' && work.id === '12'
+          ? 'article-gender-literature.html'
         : `article.html?category=${key}&work=${work.id}`;
     const text = document.createElement('div'); text.className = 'work-text';
     const link = document.createElement('a'); link.className = 'work-link'; link.href = href;

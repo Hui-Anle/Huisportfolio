@@ -1,0 +1,340 @@
+{
+  "schema_version": 1,
+  "source_document": "08_poetiques_des_genres_web_ready.md",
+  "target_page": "article-gender-literature.html",
+  "caption_language_by_reading_mode": {
+    "parallel": "fr",
+    "fr": "fr",
+    "zh": "zh",
+    "en": "en"
+  },
+  "usage": {
+    "purpose": "Translated figure labels, source selection notes, credits and article metadata for the local Codex implementation.",
+    "selection_notes_are_image_descriptions": false,
+    "selection_notes_policy": "The selection_note strings are faithful translations of the MD’s existing illustration suggestions. Use them as optional clearly labelled selection notes, not as established descriptions of uninspected images. When images are replaced, do not transfer a scene-specific note or credit to an unrelated replacement.",
+    "latest_media_policy_overrides_old_suggestions": "The current user instruction takes precedence over optional leave-empty wording in the old notes: use two media slots per existing group, reserve valid unique assets, then fill failures and duplicate slots from unused valid images in images/thesis. Do not repeat an image to fill a shortage.",
+    "paths_policy": "These paths document the source MD. Resolve real file names and extensions against the local project before rendering. Do not overwrite a successfully corrected current path with an outdated source path.",
+    "credit_policy": "Credits are tied to the exact credited image, not to the section. Retain only with that image or a confirmed equivalent copy.",
+    "ui_policy": "Render the visible caption in French for parallel mode and in the selected language for single-language mode. Switch the text and lang attributes together. If selection notes are shown, localise their label and content in the same way. Do not add a second independent language selector.",
+    "fallback_policy": "A replacement without an established description uses the neutral numbered figure label in ui.figure, plus a factual caption only if the image has been inspected. Never invent a scene, actor, production, date or photographer."
+  },
+  "ui": {
+    "figure": {
+      "fr": "Illustration {number}",
+      "zh": "插图 {number}",
+      "en": "Figure {number}"
+    },
+    "video": {
+      "fr": "Extrait vidéo {number}",
+      "zh": "视频片段 {number}",
+      "en": "Video excerpt {number}"
+    },
+    "selection_note": {
+      "fr": "Note du manuscrit sur le choix des illustrations",
+      "zh": "原稿插图说明",
+      "en": "Manuscript note on illustration selection"
+    },
+    "credit": {
+      "fr": "Crédit",
+      "zh": "署名",
+      "en": "Credit"
+    },
+    "photograph": {
+      "fr": "Photographie",
+      "zh": "摄影",
+      "en": "Photograph"
+    },
+    "illustration_details": {
+      "fr": "À propos de cette illustration",
+      "zh": "插图说明",
+      "en": "About this illustration"
+    },
+    "play_video": {
+      "fr": "Lire la vidéo",
+      "zh": "播放视频",
+      "en": "Play video"
+    }
+  },
+  "article_metadata": {
+    "author": {
+      "fr": "Autrice : ZHU Huihui（朱慧慧）",
+      "zh": "作者：ZHU Huihui（朱慧慧）",
+      "en": "Author: ZHU Huihui（朱慧慧）"
+    },
+    "original_work": {
+      "fr": "Travail de séminaire de première année de master en théorie littéraire, année universitaire 2022–2023. Enseignante : Anne Tomiche.",
+      "zh": "原作：2022—2023学年，文学理论硕士一年级研讨课作业；课程教师：Anne Tomiche。",
+      "en": "Seminar paper from the first year of the master’s programme in literary theory, academic year 2022–2023. Instructor: Anne Tomiche."
+    },
+    "current_version": {
+      "fr": "Version révisée en français, accompagnée des traductions chinoise et anglaise établies à partir de celle-ci, septembre 2026.",
+      "zh": "本稿：法文修订稿及据此完成的中文、英文译稿，2026年9月。",
+      "en": "Revised French text with Chinese and English translations based on that version, September 2026."
+    },
+    "editorial_reading_order_note_visible": false
+  },
+  "image_specific_credits": [
+    {
+      "source_path": "images/thesis/Mamelle_2.jpg",
+      "original_credit": "Glenn as The Boy, Gabriel Preisser as The Husband in Les Mamelles de Tirésias. Photo by Steve DiBartolomeo, Westside Studio Image",
+      "translations": {
+        "fr": "Glenn dans le rôle du Garçon et Gabriel Preisser dans celui du Mari, dans Les Mamelles de Tirésias. Photographie : Steve DiBartolomeo, Westside Studio Image.",
+        "zh": "《蒂蕾茜亚的乳房》中，Glenn饰演男孩，Gabriel Preisser饰演丈夫。摄影：Steve DiBartolomeo，Westside Studio Image。",
+        "en": "Glenn as the Boy and Gabriel Preisser as the Husband in Les Mamelles de Tirésias. Photograph by Steve DiBartolomeo, Westside Studio Image."
+      }
+    },
+    {
+      "source_path": "images/thesis/Les-mamelles-de-Tiresias-6233WEB-1294x600.jpg",
+      "original_credit": "POULENC, Les Mamelles de Tirésias – Mulhouse",
+      "translations": {
+        "fr": "Poulenc, Les Mamelles de Tirésias — Mulhouse.",
+        "zh": "普朗克《蒂蕾茜亚的乳房》——米卢斯。",
+        "en": "Poulenc, Les Mamelles de Tirésias — Mulhouse."
+      }
+    }
+  ],
+  "groups": [
+    {
+      "section_key": "title",
+      "source_heading": "题名 / Titre / Title",
+      "source_media_raw": "images/thesis/Tiresias.jpg ; images/thesis/somethinglikeithot.jpg",
+      "source_paths": [
+        "images/thesis/Tiresias.jpg",
+        "images/thesis/somethinglikeithot.jpg"
+      ],
+      "selection_note": {
+        "fr": "Facultatif : juxtaposer une couverture du livre et une affiche du film pour ouvrir l’article ; ne pas ajouter aux images d’étiquettes classant les identités.",
+        "zh": "可选：两部作品的书籍封面与电影海报并置，用作文章题图；不在图中另加身份分类标签。",
+        "en": "Optional: place a book cover and a film poster side by side as the article’s opening images; do not add labels categorising identities to the images."
+      }
+    },
+    {
+      "section_key": "introduction",
+      "source_heading": "引言 / Introduction",
+      "source_media_raw": "images/thesis/2011_photo_les_mamelles_de_tiresias.jpg ; images/thesis/plottrain0.jpg",
+      "source_paths": [
+        "images/thesis/2011_photo_les_mamelles_de_tiresias.jpg",
+        "images/thesis/plottrain0.jpg"
+      ],
+      "selection_note": {
+        "fr": "Cet emplacement peut rester vide ; si des images ouvrent déjà l’article, il n’est pas nécessaire de les répéter ici.",
+        "zh": "可留白；若使用题图，此处不必重复插图。",
+        "en": "This space may remain empty; if opening images are already used, they need not be repeated here."
+      }
+    },
+    {
+      "section_key": "I.1",
+      "source_heading": "I.1．《蒂蕾茜亚的乳房》 / Les Mamelles de Tirésias",
+      "source_media_raw": "images/thesis/Les-mamelles-de-Tiresias-6150WEB-1294x600.jpg ; images/thesis/les_mamelles_de_tiresias_14733_poster_19112hd_1web.jpg",
+      "source_paths": [
+        "images/thesis/Les-mamelles-de-Tiresias-6150WEB-1294x600.jpg",
+        "images/thesis/les_mamelles_de_tiresias_14733_poster_19112hd_1web.jpg"
+      ],
+      "selection_note": {
+        "fr": "Page de titre de l’édition SIC de 1918 ou illustration de Serge Férat ; préciser l’édition et le numéro de page dans la légende.",
+        "zh": "1918年SIC版扉页或Serge Férat插图；图注注明版本与页码。",
+        "en": "The title page of the 1918 SIC edition or an illustration by Serge Férat; identify the edition and page number in the caption."
+      }
+    },
+    {
+      "section_key": "I.2",
+      "source_heading": "I.2．《热情似火》 / Some Like It Hot",
+      "source_media_raw": "images/thesis/joeandjerry0.jpg ; images/thesis/travestissement2.jpg ；images/thesis/opera.jpg",
+      "source_paths": [
+        "images/thesis/joeandjerry0.jpg",
+        "images/thesis/travestissement2.jpg",
+        "images/thesis/opera.jpg"
+      ],
+      "selection_note": {
+        "fr": "Photogramme montrant Joséphine et Daphné lors de leur première apparition en vêtements féminins à la gare ; le mettre en regard de l’illustration théâtrale de la section précédente pour faire ressortir la différence entre les deux médias.",
+        "zh": "约瑟芬与达芙妮初次以女装出现在车站的电影画面；与上一节的戏剧插图形成媒介对照。",
+        "en": "A film still showing Josephine and Daphne when they first appear in women’s clothing at the railway station; juxtapose it with the theatrical illustration in the previous section to bring out the contrast between the two media."
+      }
+    },
+    {
+      "section_key": "II.1",
+      "source_heading": "II.1．衣服未变，异装效果已经发生 / Le vêtement demeure, l’effet de travestissement apparaît / Unchanged Clothes, an Emerging Effect of Cross-Dressing",
+      "source_media_raw": "images/thesis/Mamelle_2.jpg (Glenn as The Boy, Gabriel Preisser as The Husband in Les Mamelles de Tirésias. Photo by Steve DiBartolomeo, Westside Studio Image)；images/thesis/Les-mamelles-de-Tiresias-6233WEB-1294x600.jpg (POULENC, Les Mamelles de Tirésias – Mulhouse)",
+      "source_paths": [
+        "images/thesis/Mamelle_2.jpg",
+        "images/thesis/Les-mamelles-de-Tiresias-6233WEB-1294x600.jpg"
+      ],
+      "selection_note": {
+        "fr": "Juxtaposer les deux didascalies consacrées à la métamorphose corporelle et à l’échange des vêtements. Si des photographies de spectacle sont utilisées, préciser la production concernée, afin de ne pas présenter les choix d’une mise en scène particulière comme les seules indications du texte.",
+        "zh": "剧本中身体变形与交换衣物的两处舞台指示并置。若用演出照片，注明具体制作版本，避免把某次演出的处理当作剧本唯一规定。",
+        "en": "Place the two stage directions concerning bodily transformation and the exchange of clothes side by side. If production photographs are used, identify the particular production so that its staging choices are not presented as the play’s only prescribed interpretation."
+      }
+    },
+    {
+      "section_key": "II.2",
+      "source_heading": "II.2．重新成为Thérèse，是否意味着恢复原状？ / Redevenir Thérèse : un retour à l’état initial ? / Becoming Thérèse Again: a Return to the Beginning?",
+      "source_media_raw": "images/thesis/Les-mamelles-de-Tiresias-6150WEB-2-1294x600.jpg ; images/thesis/Les-mamelles-de-Tiresias-6266WEB-1294x600.jpg",
+      "source_paths": [
+        "images/thesis/Les-mamelles-de-Tiresias-6150WEB-2-1294x600.jpg",
+        "images/thesis/Les-mamelles-de-Tiresias-6266WEB-1294x600.jpg"
+      ],
+      "selection_note": {
+        "fr": "Les ballons, les accessoires figurant les seins ou les didascalies correspondantes à la fin de la pièce. Une mise en relation avec la section précédente, autour de la métamorphose et du refus du retour à l’état initial, suffit ; chaque section n’a pas nécessairement besoin d’une illustration.",
+        "zh": "剧本结尾的气球、乳房道具或相关舞台指示。与前一节形成“变形—拒绝复原”的对应即可，无须每节都放图。",
+        "en": "The balloons, breast props or corresponding stage directions at the end of the play. A connection with the previous section, linking transformation to the refusal of restoration, is sufficient; not every section needs an illustration."
+      }
+    },
+    {
+      "section_key": "II.3",
+      "source_heading": "II.3．服装、表演与舞伴位置 / Costume, jeu et positions dans la danse / Costume, Performance and Positions in the Dance",
+      "source_media_raw": "images/thesis/joejerry.jpg ; images/thesis/danseend.jpg",
+      "source_paths": [
+        "images/thesis/joejerry.jpg",
+        "images/thesis/danseend.jpg"
+      ],
+      "selection_note": {
+        "fr": "Privilégier deux photogrammes du tango d’Osgood et Daphné qui se répondent, afin de montrer les changements entre les positions de meneur et de partenaire qui suit. Conserver les détails de la fleur placée sur la tête et du tissu enroulé autour de la taille.",
+        "zh": "优先选择Osgood与Daphné探戈中前后呼应的两个画面，展示引领／跟随位置的变化。保留花戴在头上、布料围在腰间的动作细节。",
+        "en": "Prefer two corresponding stills from Osgood and Daphne’s tango that show the shifts between leading and following. Retain the details of the flower placed on the head and the cloth wrapped around the waist."
+      }
+    },
+    {
+      "section_key": "III.1",
+      "source_heading": "III.1．衣着与被感知的力量 / Vêtements et force perçue / Clothing and Perceived Strength",
+      "source_media_raw": "images/thesis/opera.jpg ; images/thesis/les_mamelles_de_tiresias_6751web.jpg ; images/thesis/bathtub.jpg",
+      "source_paths": [
+        "images/thesis/opera.jpg",
+        "images/thesis/les_mamelles_de_tiresias_6751web.jpg",
+        "images/thesis/bathtub.jpg"
+      ],
+      "selection_note": {
+        "fr": "Deux photogrammes correspondants montrant l’évolution de l’interaction entre Joe et Jerry dans la scène de la baignoire ; la légende doit décrire leurs positions, leurs postures et leurs vêtements, sans affirmer directement que « les hommes sont plus forts ».",
+        "zh": "浴缸场景中Joe与Jerry互动前后的对应画面；图注应描述站位、姿态与衣着，不直接写“男性更强”。",
+        "en": "Two corresponding stills showing changes in Joe and Jerry’s interaction in the bathtub scene; the caption should describe their positions, postures and clothing rather than directly state that “men are stronger”."
+      }
+    },
+    {
+      "section_key": "III.2",
+      "source_heading": "III.2．身体特征、乐器与性别识别 / Caractéristiques corporelles, instruments et identification de genre / Bodily Features, Instruments and Gender Attribution",
+      "source_media_raw": "images/thesis/trainspectacle.jpg ; images/thesis/instruments.jpg",
+      "source_paths": [
+        "images/thesis/trainspectacle.jpg",
+        "images/thesis/instruments.jpg"
+      ],
+      "selection_note": {
+        "fr": "Deux possibilités : 1. un photogramme réunissant Sugar et Daphné sur la plage ; 2. des images mettant en regard l’ukulélé et la contrebasse. Pour la seconde possibilité, conserver dans la légende le statut d’hypothèse interprétative de cette comparaison visuelle, sans la présenter comme une intention avérée du réalisateur.",
+        "zh": "可选其一：①Sugar与Daphné在海滩的同框画面；②尤克里里与低音提琴的对照画面。第二组图注保留“视觉比较的解释性假说”，不标为已证实的导演意图。",
+        "en": "Two options: 1. a still showing Sugar and Daphne together on the beach; 2. images comparing the ukulele and the double bass. For the second option, retain the visual comparison’s status as an interpretative hypothesis in the caption, rather than presenting it as the director’s established intention."
+      }
+    },
+    {
+      "section_key": "III.3",
+      "source_heading": "III.3．从误认到欲望的持续 / De la méprise à la persistance du désir / From Misrecognition to the Persistence of Desire",
+      "source_media_raw": "images/thesis/2011_photo_les_mamelles_de_tiresias (7).jpg ; images/thesis/2011_photo_les_mamelles_de_tiresias (11).jpg",
+      "source_paths": [
+        "images/thesis/2011_photo_les_mamelles_de_tiresias (7).jpg",
+        "images/thesis/2011_photo_les_mamelles_de_tiresias (11).jpg"
+      ],
+      "selection_note": {
+        "fr": "Le détail de la cheville lors de la première rencontre entre Osgood et Daphné, ou leur échange dans le canot à moteur à la fin du film ; ces images peuvent être mises en regard d’une brève citation de la demande en mariage du gendarme dans la pièce.",
+        "zh": "Osgood与Daphné初遇的脚踝细节，或末尾快艇上的对话画面；可与剧本中警察求婚的短引文并置。",
+        "en": "The ankle detail in Osgood and Daphne’s first encounter, or their exchange in the motorboat at the end of the film; these images can be paired with a short quotation from the gendarme’s marriage proposal in the play."
+      }
+    },
+    {
+      "section_key": "III.4",
+      "source_heading": "III.4．谁更符合“真正淑女”的标准？ / Qui répond le mieux à l’idéal des « vraies dames » ? / Who Best Meets the Ideal of “Real Ladies”?",
+      "source_media_raw": "images/thesis/joejerry.jpg ; images/thesis/joeandjerry1.jpg ; images/thesis/spectacle.jpg",
+      "source_paths": [
+        "images/thesis/joejerry.jpg",
+        "images/thesis/joeandjerry1.jpg",
+        "images/thesis/spectacle.jpg"
+      ],
+      "selection_note": {
+        "fr": "L’accueil de Joséphine et Daphné dans l’orchestre, ou le passage de la pièce indiquant le nombre d’enfants du mari. Cet emplacement peut rester vide pour éviter une trop grande densité d’images après la section précédente.",
+        "zh": "乐队初次接纳约瑟芬与达芙妮的画面，或丈夫生育数量的剧本文字。可留白，避免与前节图像过密。",
+        "en": "The orchestra’s initial reception of Josephine and Daphne, or the passage in the play giving the number of children born to the husband. This space may remain empty to avoid placing too many images close to those in the previous section."
+      }
+    },
+    {
+      "section_key": "IV.1",
+      "source_heading": "IV.1．Thérèse／Tirésias与Sugar／Daphné的两组比较 / Deux comparaisons : Thérèse–Tirésias et Sugar–Daphné / Two Comparisons: Thérèse–Tirésias and Sugar–Daphne",
+      "source_media_raw": "images/thesis/travestissement.jpg ; images/thesis/les_mamelles_de_tiresias_14733_poster_19112hd_1web.jpg",
+      "source_paths": [
+        "images/thesis/travestissement.jpg",
+        "images/thesis/les_mamelles_de_tiresias_14733_poster_19112hd_1web.jpg"
+      ],
+      "selection_note": {
+        "fr": "Juxtaposer une image de Sugar se confiant à Joséphine et une autre de Jerry discutant avec Joe, afin de souligner les relations d’écoute, de persuasion et d’influence.",
+        "zh": "Sugar与Joséphine倾谈、Jerry与Joe商议的两个画面并置，突出倾听、说服与被说服的关系。",
+        "en": "Place an image of Sugar confiding in Josephine beside one of Jerry discussing matters with Joe, emphasising listening, persuading and being persuaded."
+      }
+    },
+    {
+      "section_key": "IV.2",
+      "source_heading": "IV.2．进入女性的交往空间 / Entrer dans les espaces de sociabilité féminine / Entering Women’s Spaces of Sociability",
+      "source_media_raw": "images/theis/plottrain.jpg ; images/thesis/SomeLikeItHot-1959-TonyCurtis-JackLemmon-coats1-heels-bw.jpg ; images/thesis/highheels.jpg",
+      "source_paths": [
+        "images/theis/plottrain.jpg",
+        "images/thesis/SomeLikeItHot-1959-TonyCurtis-JackLemmon-coats1-heels-bw.jpg",
+        "images/thesis/highheels.jpg"
+      ],
+      "selection_note": {
+        "fr": "Deux détails des chaussures à talons hauts qui se répondent à différents moments du film, ou une vue d’ensemble des musiciennes conversant dans le train.",
+        "zh": "高跟鞋细节的前后呼应画面，或火车上女乐手们交谈的群像。",
+        "en": "Corresponding details of high-heeled shoes at different points in the film, or a group image of the women musicians talking on the train."
+      }
+    },
+    {
+      "section_key": "IV.3",
+      "source_heading": "IV.3．父亲、母亲与词语的变形 / Père, mère et métamorphoses des mots / Father, Mother and the Metamorphosis of Words",
+      "source_media_raw": "images/thesis/La-Mamelle-De-Tiresias.jpg ;  images/thesis/Mamelles1.jpg",
+      "source_paths": [
+        "images/thesis/La-Mamelle-De-Tiresias.jpg",
+        "images/thesis/Mamelles1.jpg"
+      ],
+      "selection_note": {
+        "fr": "La page de la pièce contenant « merdecin / mère des seins / merdecine / mère des cygnes ». Conserver ces expressions françaises dans les légendes chinoise et anglaise pour que les jeux de mots ne disparaissent pas dans la traduction.",
+        "zh": "含“merdecin / mère des seins / merdecine / mère des cygnes”的剧本原页。中文和英文图注保留法文，以免双关在翻译中消失。",
+        "en": "The page of the play containing “merdecin / mère des seins / merdecine / mère des cygnes”. Retain these French expressions in the Chinese and English captions so that the wordplay is not lost in translation."
+      }
+    },
+    {
+      "section_key": "IV.4",
+      "source_heading": "IV.4．Joe：理解、反思与给予 / Joe : compréhension, remise en question et don / Joe: Understanding, Self-Reflection and Giving",
+      "source_media_raw": "images/thesis/review-the-unicorn-scale-the-unicorn-scale-some-like-it-hot-3.jpg ; images/thesis/joeandsugar.jpg",
+      "source_paths": [
+        "images/thesis/review-the-unicorn-scale-the-unicorn-scale-some-like-it-hot-3.jpg",
+        "images/thesis/joeandsugar.jpg"
+      ],
+      "selection_note": {
+        "fr": "La scène où Sugar se confie à Joséphine ; si une image du bracelet est ajoutée, la mettre en relation avec l’origine du cadeau offert par Osgood.",
+        "zh": "舒格向约瑟芬倾诉的场景；如增加手镯画面，应与Osgood赠礼的来源呼应。",
+        "en": "The scene in which Sugar confides in Josephine; if an image of the bracelet is added, connect it with Osgood as the source of the gift."
+      }
+    },
+    {
+      "section_key": "IV.5",
+      "source_heading": "IV.5．“我是女孩”与“我是男孩” / « I’m a girl » et « I’m a boy » / “I’m a Girl” and “I’m a Boy”",
+      "source_media_raw": "images/thesis/f5a23-slihlemmonandmillionaire.jpg ; videos/endofsthlikeithot.mp4",
+      "source_paths": [
+        "images/thesis/f5a23-slihlemmonandmillionaire.jpg",
+        "videos/endofsthlikeithot.mp4"
+      ],
+      "selection_note": {
+        "fr": "Juxtaposer une image de Jerry dans le train et une autre où il agite des maracas après ses fiançailles ; si des répliques sont ajoutées, employer les phrases brèves et les repères temporels correspondants après vérification.",
+        "zh": "火车上的Jerry与订婚后摇着沙锤的Jerry两个画面并置；如配台词，使用核对后的短句和时间码。",
+        "en": "Place an image of Jerry on the train beside one of him shaking maracas after his engagement; if dialogue is included, use the corresponding short lines and timecodes after checking them."
+      }
+    },
+    {
+      "section_key": "conclusion",
+      "source_heading": "结论 / Conclusion",
+      "source_media_raw": "videos/wannabelovedbyu.mp4 ; images/thesis/2011_photo_les_mamelles_de_tiresias.jpg",
+      "source_paths": [
+        "videos/wannabelovedbyu.mp4",
+        "images/thesis/2011_photo_les_mamelles_de_tiresias.jpg"
+      ],
+      "selection_note": {
+        "fr": "Cet emplacement peut rester vide, pour laisser résonner les paroles finales des deux œuvres ; si une image de clôture est souhaitée, choisir un rideau de théâtre qui tombe ou un plan d’ensemble du canot à moteur, sans ajouter de commentaire explicatif.",
+        "zh": "可留白，让两部作品的结尾语言自行呼应；如需收尾图，可用剧院落幕或电影快艇远景，不再增加解释性文字。",
+        "en": "This space may remain empty, allowing the works’ closing words to echo each other; if a closing image is wanted, use a falling theatre curtain or a wide shot of the motorboat, without adding further explanatory text."
+      }
+    }
+  ]
+}
