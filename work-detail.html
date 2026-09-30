@@ -32,6 +32,8 @@
     .translation .translation-fr { margin-top:.15em; }
     .back { position:fixed; top:30px; right:4.5vw; z-index:21; padding:12px 16px; background:rgb(255 255 255 / .15); color:#fff; border:1px solid rgb(255 255 255 / .4); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); font-size:10px; text-shadow:0 1px 4px rgb(0 0 0 / .8); transition:background .25s ease,border-color .25s ease; }
     .back:hover { background:rgb(255 255 255 / .28); border-color:rgb(255 255 255 / .7); }
+    .about-back{top:auto;right:auto;left:4.5vw;bottom:30px}
+    @media(max-width:600px){.about-back{left:12px;right:auto;bottom:max(14px,env(safe-area-inset-bottom));min-height:42px;padding:10px 11px}.back{min-height:42px;padding:10px 11px}body{padding-bottom:74px}}
     @keyframes title-grow { 0%, 100% { transform:scale(1); } 50% { transform:scale(3); } }
     @keyframes subtitle-grow { 0%, 100% { transform:scale(1); } 50% { transform:translateY(clamp(70px,8vw,130px)) scale(3); } }
     @keyframes background-reveal { from,to { opacity:1; transform:none; } }
@@ -44,12 +46,16 @@
     @media(prefers-reduced-motion:reduce) {
       .work-title,.work-background,.translation { animation:none!important; transition:none!important; transform:none!important; }
     }
-</style></head><body>
+
+    .work-subtitle{margin-top:10px;color:#000;font:400 clamp(13px,1.35vw,18px)/1.45 "Songti SC","Noto Serif CJK SC",serif;letter-spacing:.02em}.work-subtitle span{display:block}.work-link-disabled{cursor:default}.work-link-disabled::before{pointer-events:none}.work-link-disabled .work-title{opacity:.95}
+</style>  <script src="js/site-language.js"></script>
+</head><body>
   <header class="masthead">
     <a class="signature" href="index.html" aria-label="Huihui ZHU 首页"><span class="seal" aria-hidden="true">朱</span><span class="eyebrow">Huihui ZHU<br>Words & Worlds</span></a>
 
   </header>
 <a class="back" href="works.html">← 返回类别 Back</a>
+<a class="back about-back" data-about-link href="article-about.html?lang=en">Beyond the Works</a>
 <div class="video-stage">
 <video id="bg-video" class="work-background" muted playsinline loop autoplay aria-hidden="true"></video>
 <main class="titles-layer"><h1 id="category-title">作品列表</h1><ul class="work-list" id="work-list"></ul></main>
@@ -146,6 +152,18 @@ const categoryData = {
         "en": "Drama Analysis",
         "fr": "Analyse dramatique"
       }
+      ,{
+        "id": "14",
+        "title": "比较文学",
+        "en": "Comparative Literature",
+        "fr": "Littérature comparée",
+        "subtitle": {
+          "zh": "互文与改写",
+          "fr": "Intertextualité et réécritures",
+          "en": "Intertextuality and Rewriting"
+        },
+        "available": false
+      }
     ]
   }
 };
@@ -180,20 +198,34 @@ const categoryData = {
           ? 'article-reading.html'
         : key === 'contemplation' && work.id === '08'
           ? 'article-honglou.html'
+        : key === 'theory' && work.id === '10'
+          ? 'article-poetry-translation.html'
         : key === 'theory' && work.id === '11'
           ? 'article-rhetorique.html'
         : key === 'theory' && work.id === '12'
           ? 'article-gender-literature.html'
+        : key === 'theory' && work.id === '13'
+          ? 'article-theatre-analysis.html'
+        : key === 'theory' && work.id === '14'
+          ? 'article-comparative-literature.html'
         : `article.html?category=${key}&work=${work.id}`;
     const text = document.createElement('div'); text.className = 'work-text';
-    const link = document.createElement('a'); link.className = 'work-link'; link.href = href;
+    const link = document.createElement(href ? 'a' : 'div'); link.className = 'work-link' + (href ? '' : ' work-link-disabled');
+    if (href) link.href = href; else { link.setAttribute('aria-disabled', 'true'); link.setAttribute('title', '内容页待接入'); }
     const title = document.createElement('span'); title.className = 'work-title'; title.textContent = work.title;
+    const subtitle = document.createElement('p'); subtitle.className = 'translation work-subtitle';
+    if (work.subtitle) {
+      const zhSub = document.createElement('span'); zhSub.lang = 'zh'; zhSub.className = 'subtitle-zh'; zhSub.textContent = work.subtitle.zh;
+      const frSub = document.createElement('span'); frSub.lang = 'fr'; frSub.className = 'subtitle-fr'; frSub.textContent = work.subtitle.fr;
+      const enSub = document.createElement('span'); enSub.lang = 'en'; enSub.className = 'subtitle-en'; enSub.textContent = work.subtitle.en;
+      subtitle.append(zhSub, frSub, enSub);
+    }
     const translation = document.createElement('p'); translation.className = 'translation';
     const en = document.createElement('span'); en.lang = 'en'; en.textContent = work.en;
     const fr = document.createElement('span'); fr.lang = 'fr'; fr.textContent = work.fr;
     en.className = 'translation-en';
     fr.className = 'translation-fr';
-    translation.append(en, fr); link.append(title, translation); text.append(link); row.append(text); list.append(row);
+    translation.append(en, fr); link.append(title); if (work.subtitle) link.append(subtitle); link.append(translation); text.append(link); row.append(text); list.append(row);
   });
   // Scroll-driven title scale: one rAF per frame, based on distance to viewport center.
   const stage = document.querySelector('.video-stage');
@@ -227,4 +259,4 @@ const categoryData = {
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(requestTitleUpdate);
   requestTitleUpdate();
 })();
-</script></body></html>
+</script><script src="js/about-link.js"></script></body></html>

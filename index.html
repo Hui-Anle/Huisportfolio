@@ -18,7 +18,10 @@
     .signature { display: flex; align-items: center; gap: 15px; }
     .seal { width: 31px; height: 35px; border: 1px solid #986152; color: #986152; display: grid; place-items: center; font: 20px "Songti SC", SimSun, serif; transform: rotate(-4deg); border-radius: 2px 0 3px 0; }
     .eyebrow { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; line-height: 1.7; }
-    .edition { color: #7e8076; font-size: 10px; letter-spacing: .14em; }
+    .masthead-links { display:flex; align-items:center; gap:18px; flex-wrap:wrap; justify-content:flex-end; }
+    .edition, .about-link { color: #7e8076; font-size: 10px; letter-spacing: .14em; text-decoration:none; }
+    .about-link { color: var(--green); }
+    .edition:hover, .about-link:hover { color: var(--ink); }
     .composition { width: 100%; flex: 1 1 0; min-height: 0; min-width: 0; display: grid; grid-template-columns: 34% 66%; grid-template-rows: minmax(0, 1fr); align-items: center; padding: clamp(12px, 5svh, 65px) 0 clamp(12px, 5svh, 75px); position: relative; }
     .still-life { position: relative; margin: 15px 0 0 3vw; width: 70%; max-width: min(330px, 43svh); }
     .photo { width: 100%; aspect-ratio: .73; object-fit: cover; filter: grayscale(1) sepia(.14); opacity: .77; display: block; background: #e5e5dc; }
@@ -62,7 +65,8 @@
     @media (min-width: 1600px) { .composition { max-width: 1650px; margin: auto; } }
     @media (max-width: 700px) {
       .hero { padding: 24px 7vw 22px; }
-      .edition { font-size: 8px; }
+      .edition, .about-link { font-size: 8px; }
+      .masthead-links { gap: 10px; }
       .composition { grid-template-columns: 1fr; grid-template-rows: auto auto; align-content: center; padding: 12px 0; gap: clamp(12px, 3svh, 36px); }
       .still-life { width: min(34%, 17svh); margin: 0 0 0 7px; }
       .photo { aspect-ratio: .95; }
@@ -81,12 +85,13 @@
     @media (prefers-reduced-motion: reduce) { #effects { display: none; } }
     #soft-transition { position:fixed; inset:0; z-index:99999; pointer-events:none; opacity:0; background:rgba(255,255,255,.18); filter:blur(0); transition:opacity .6s ease-in-out,filter .6s ease-in-out; }
   </style>
+  <script src="js/site-language.js"></script>
 </head>
 <body>
   <main class="hero">
     <header class="masthead">
       <div class="signature"><span class="seal" aria-hidden="true">朱</span><span class="eyebrow">Huihui ZHU<br>Words & Worlds</span></div>
-      <a class="edition" href="works.html">文学 · 观察 · 创作</a>
+      <nav class="masthead-links" aria-label="网站入口"><a class="about-link" href="article-about.html">作品之外</a><a class="edition" href="works.html">文学 · 观察 · 创作</a></nav>
     </header>
     <div class="composition">
       <figure class="still-life">
@@ -124,11 +129,12 @@
       const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
       const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
       const coreSources = ['trees_green_sea.jpg','dew_on_buds.jpg','ski_tree.jpg','bird_water_hose.jpg','dog_soil_mouth.jpg'];
-      const deferredSources = ['drip_car_window.jpg','extraterrestrial_sky.jpg','green_human_bones.jpg','marguerite.jpg','old_scopes.jpg','tree_pool.jpg','wet_red_leaves.jpg'];
+      const deferredSources = ['drip_car_window.jpg','extraterrestrial_sky.jpg','green_human_bones.jpg','marguerite.jpg','old_scopes.jpg','tree_pool.jpg','wet_red_leaves.jpg','liquid_light.jpg','monets_garden.jpg','people_in_rain.jpg','water_sky.jpg','webs_between_stones.jpg'];
       const sources = [...coreSources, ...deferredSources].map(filename => `images/${filename}`);
       const MAX_VISIBLE_PHOTOS = 8;
-      const photos = [];
-      let warmed = false, lastTime = 0, lastX = null, lastY = null, sequence = 0;
+      const PHOTO_LOAD_CONCURRENCY = 3;
+      const photoRecords = sources.map(src => ({ src, img: null, status: 'queued', shown: false }));
+      let photoQueueIndex = 0, activePhotoLoads = 0, lastTime = 0, lastX = null, lastY = null, sequence = 0;
       document.getElementById('year').textContent = new Date().getFullYear();
       function updateHint() {
         document.getElementById('interaction-hint').textContent = reducedMotion.matches || !finePointer.matches
@@ -136,23 +142,46 @@
         if (!finePointer.matches) hideBrush();
         if (reducedMotion.matches) effects.replaceChildren();
       }
-      function warmPhotos() {
-        if (warmed) return;
-        warmed = true;
-        const load = (src, lazy = false) => {
+      function pumpPhotoQueue() {
+        while (activePhotoLoads < PHOTO_LOAD_CONCURRENCY && photoQueueIndex < photoRecords.length) {
+          const record = photoRecords[photoQueueIndex++];
+          if (record.status !== 'queued') continue;
+          record.status = 'loading';
+          activePhotoLoads += 1;
           const img = new Image();
-          if (lazy) img.loading = 'lazy';
           img.decoding = 'async';
-          img.src = src;
-          // Decode before adding to the pool to avoid a first-frame hitch.
-          img.decode().then(() => photos.push(img)).catch(() => {
-            // Unavailable images never enter the animation pool.
-          });
-        };
-        coreSources.map(filename => `images/${filename}`).forEach(src => load(src));
-        const defer = () => deferredSources.map(filename => `images/${filename}`).forEach(src => load(src, true));
-        if ('requestIdleCallback' in window) requestIdleCallback(defer, { timeout: 1800 });
-        else setTimeout(defer, 900);
+          let settled = false;
+          const finish = (ok) => {
+            if (settled) return;
+            settled = true;
+            activePhotoLoads -= 1;
+            if (ok) {
+              record.img = img;
+              record.status = 'loaded';
+            } else {
+              record.status = 'failed';
+            }
+            pumpPhotoQueue();
+          };
+          img.onload = () => {
+            img.decode().then(() => finish(true)).catch(() => finish(false));
+          };
+          img.onerror = () => finish(false);
+          img.src = record.src;
+        }
+      }
+      function nextPhotoRecord() {
+        let record = photoRecords.find(item => item.status === 'loaded' && !item.shown);
+        if (record) return record;
+        const pending = photoRecords.some(item => item.status === 'queued' || item.status === 'loading');
+        if (pending) return null;
+        const loaded = photoRecords.filter(item => item.status === 'loaded');
+        if (!loaded.length) return null;
+        loaded.forEach(item => { item.shown = false; });
+        return loaded[0] || null;
+      }
+      function startPhotoLoading() {
+        pumpPhotoQueue();
       }
       function removeAfterAnimation(node) {
         node.addEventListener('animationend', () => node.remove(), { once: true });
@@ -164,16 +193,19 @@
         ink.style.left = `${x}px`; ink.style.top = `${y}px`;
         effects.appendChild(ink);
         removeAfterAnimation(ink);
-        // Photography emerges as the ink disperses, using preloaded images only.
-        if (photos.length && effects.querySelectorAll('.memory').length < MAX_VISIBLE_PHOTOS) {
-          const photo = photos[sequence++ % photos.length].cloneNode();
-          photo.alt = ''; photo.className = 'memory';
-          photo.style.left = `${x}px`; photo.style.top = `${y}px`;
-          photo.style.setProperty('--turn', `${Math.random() * 16 - 8}deg`);
-          photo.style.animationDelay = '650ms';
-          effects.appendChild(photo);
-          removeAfterAnimation(photo);
-        }
+        // Keep sequence independent for the original animation cadence; photo choice uses stable records.
+        sequence += 1;
+        if (effects.querySelectorAll('.memory').length >= MAX_VISIBLE_PHOTOS) return;
+        const record = nextPhotoRecord();
+        if (!record) return;
+        const photo = record.img.cloneNode();
+        photo.alt = ''; photo.className = 'memory';
+        photo.style.left = `${x}px`; photo.style.top = `${y}px`;
+        photo.style.setProperty('--turn', `${Math.random() * 16 - 8}deg`);
+        photo.style.animationDelay = '650ms';
+        effects.appendChild(photo);
+        record.shown = true;
+        removeAfterAnimation(photo);
       }
       window.addEventListener('pointermove', event => {
         if (!finePointer.matches || event.pointerType === 'touch') return;
@@ -181,7 +213,6 @@
         brush.style.transform = `translate3d(${x}px, ${y}px, 0)`;
         document.documentElement.classList.add('brush-active');
         if (reducedMotion.matches) return;
-        warmPhotos();
         const now = performance.now();
         if (now - lastTime < 400 || (lastX !== null && Math.hypot(x - lastX, y - lastY) < 48)) return;
         bloom(x, y); lastTime = now; lastX = x; lastY = y;
@@ -193,7 +224,7 @@
       finePointer.addEventListener('change', updateHint);
       reducedMotion.addEventListener('change', updateHint);
       updateHint();
-      warmPhotos();
+      startPhotoLoading();
     })();
   </script>
   <script>

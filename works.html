@@ -30,12 +30,14 @@ main { position:relative; z-index:1; display:grid; min-height:100svh; }
 .category-word { display:block; font-family:"Ma Shan Zheng","KaiTi","STKaiti","Kaiti SC",serif; font-size:clamp(56px,min(7vw,12svh),116px); line-height:1.12; font-weight:400; letter-spacing:.12em; text-indent:.12em; transition:transform 800ms cubic-bezier(.2,.7,.2,1); }
 .category:hover .category-word,.category:focus-visible .category-word { transform:scale(1.05); }
 .category-translation { margin-top:12px; font:10px/1.5 Georgia,"Times New Roman",serif; letter-spacing:.1em; color:var(--muted); }
+.about-entry{position:fixed;left:4.5vw;bottom:24px;z-index:4;text-align:left;color:var(--green);font:12px/1.7 Georgia,"Songti SC",serif;letter-spacing:.08em}.about-entry a{display:inline-block;padding:9px 15px;border:1px solid rgba(74,93,78,.35);background:rgba(253,251,247,.74);backdrop-filter:blur(6px);border-radius:2px}.about-entry a:hover,.about-entry a:focus-visible{border-color:var(--green);background:rgba(253,251,247,.94)}@media(max-width:700px){body{overflow-x:hidden}.category{touch-action:manipulation}.about-entry{left:14px;bottom:max(14px,env(safe-area-inset-bottom));font-size:11px}.about-entry a{padding:9px 11px;min-height:42px;display:inline-flex;align-items:center}.entrance{padding-bottom:96px}}
 
 .sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
 @media(max-width:700px) { .masthead { top:24px; left:7vw; } .category-word { font-size:clamp(56px,12vw,85px); } }
 @media(prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none!important; } }
 #soft-transition { position:fixed; inset:0; z-index:99999; pointer-events:none; opacity:0; background:rgba(255,255,255,.18); filter:blur(20px); transition:opacity .6s ease-in-out,filter .6s ease-in-out; }
 </style>
+  <script src="js/site-language.js"></script>
 </head>
 <body>
 <div class="background" aria-hidden="true"><video id="bg-video" muted loop playsinline preload="none" tabindex="-1" disablepictureinpicture></video></div>
@@ -49,6 +51,7 @@ main { position:relative; z-index:1; display:grid; min-height:100svh; }
     <a class="category" data-category="theory" href="work-detail.html?category=theory"><span class="category-word">文论</span><span class="category-translation"><span lang="en">Literary Theory</span> / <span lang="fr">Théorie littéraire</span></span></a>
   </nav>
 </section>
+<div class="about-entry"><a href="article-about.html" aria-label="作品之外 / Au-delà des œuvres / Beyond the Works"><span>作品之外</span><span aria-hidden="true"> / </span><span>Au-delà des œuvres</span><span aria-hidden="true"> / </span><span>Beyond the Works</span> <span aria-hidden="true">→</span></a></div>
 </main>
 <div id="soft-transition" aria-hidden="true"></div>
 <script>
